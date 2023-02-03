@@ -5,6 +5,7 @@ import { AgGridReact } from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
 
+
 const App = () => {
 
  const gridRef = useRef(); // Optional - for accessing Grid's API
@@ -12,10 +13,11 @@ const App = () => {
 
  // Each Column Definition results in one Column.
  const [columnDefs, setColumnDefs] = useState([
-   {field: 'make', filter: true},
-   {field: 'model', filter: true},
-   {field: 'price'}
+   {field: 'birthdate', filter: true},
+   {field: 'shoeSize', filter: true},
+   {field: 'name'}
  ]);
+
 
  // DefaultColDef sets props common to all Columns
  const defaultColDef = useMemo( ()=> ({
@@ -27,11 +29,11 @@ const App = () => {
    console.log('cellClicked', event);
  }, []);
 
- // Example load data from sever
+// Example load data from sever
  useEffect(() => {
-   fetch('https://www.ag-grid.com/example-assets/row-data.json')
+   fetch('/users', { mode: 'same-origin', headers: {'Access-Control-Allow-Origin': '*'}})
    .then(result => result.json())
-   .then(rowData => setRowData(rowData))
+   .then(rowData => setRowData(rowData._embedded.users))
  }, []);
 
  // Example using Grid's API
