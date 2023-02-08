@@ -5,7 +5,7 @@ import { AgGridReact } from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
 
-class NameForm extends React.Component {
+class ShoesizeForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,12 +24,23 @@ class NameForm extends React.Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    console.log(value)
 
-    this.setState({
-      handleInputChange: 
+    this.setState({ 
+      [name]: value
     });
-    console.log(JSON.stringify(this.state))
+
+    // this.setState({ 
+    //   submitEnabled: this.state.birthdate != null && 
+    //                   this.state.firstName.trim.length > 0 && 
+    //                   this.state.lastName.trim.length > 0 && 
+    //                   this.state.shoeSize > 0
+    // });
+    // console.log(`${name}:${value}`)
+    // console.log(`birthdate != null: ${this.state.birthdate != null} [${this.state.birthdate}]`)
+    // console.log(`firstName.trim.length > 0: ${this.state.firstName.trim.length > 0} [${this.state.firstName}]`)
+    // console.log(`lastName.trim.length > 0: ${this.state.lastName.trim.length > 0} [${this.state.lastName}]`)
+    // console.log(`shoeSize > 0: ${this.state.shoeSize > 0} [${this.state.shoeSize}]`)
+    // console.log(`submitEnabled > 0: ${this.state.submitEnabled}`)
   }
   
 
@@ -39,6 +50,16 @@ class NameForm extends React.Component {
   }
 
   render() {
+    const submitEnabled = this.state.birthdate != null && 
+                          this.state.firstName.trim().length > 0 && 
+                          this.state.lastName.trim().length > 0 && 
+                          this.state.shoeSize > 0
+    console.log(submitEnabled)
+    console.log(`birthdate: [${new Date(this.state.birthdate)}] => ${new Date(this.state.birthdate) < new Date()}`)
+    console.log(`firstName: [${this.state.firstName}] => ${this.state.firstName.trim().length > 0}`)
+    console.log(`lastName: [${this.state.lastName}] => ${this.state.lastName.trim().length > 0}`)
+    console.log(`shoeSize: [${this.state.shoeSize}] => ${this.state.shoeSize > 0}`)
+
     return (
       <form onSubmit={this.handleSubmit} style={{
         display: 'grid',
@@ -48,21 +69,21 @@ class NameForm extends React.Component {
         }}>
         <label>
           First Name: 
-          <input type="text" value={this.state.firstName} onChange={this.handleInputChange} />
+          <input type="text" name='firstName' value={this.state.firstName} onChange={this.handleInputChange} />
         </label>
         <label>
           Last Name: 
-          <input type="text" value={this.state.lastName} onChange={this.handleInputChange} />
+          <input type="text" name='lastName' value={this.state.lastName} onChange={this.handleInputChange} />
         </label>
         <label>
           Birthdate: 
-          <input type="date" value={this.state.birthdate} onChange={this.handleInputChange} />
+          <input type="date" name='birthdate' value={this.state.birthdate} onChange={this.handleInputChange} />
         </label>
         <label>
           Shoesize: 
-          <input type="number" value={this.state.shoeSize} onChange={this.handleInputChange} />
+          <input type="number" name='shoeSize' value={this.state.shoeSize} onChange={this.handleInputChange} />
         </label>
-        <input type="submit" value="Submit" disabled={!this.state.submitEnabled}/>
+        <input type="submit" value="Submit" disabled={!submitEnabled}/>
       </form>
     );
   }
@@ -110,7 +131,7 @@ const App = () => {
         gridAutoRows: 'minmax(100px, auto)',}}
     >
 
-    <NameForm style={{gridColumn: 1}}/>
+    <ShoesizeForm style={{gridColumn: 1}}/>
 
      {
      /* 
