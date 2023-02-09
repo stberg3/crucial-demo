@@ -7,13 +7,15 @@ import {
 const User = () => {
 
 	let user = useLoaderData();
-	console.log(user)
-	console.log(user['id'])
+	let userObj = JSON.parse(user)
+	console.log(userObj.id)
 
 	return(
 	  <div>
-	      <h1>User</h1>
-	      <pre>{user}</pre>
+	      <h1>{userObj.name}</h1>
+	      <p><strong>id:</strong> {userObj.id}</p>
+	      <p><strong>shoeSize:</strong> {userObj.shoeSize}</p>
+	      <p><strong>birthdate:</strong> {userObj.birthdate}</p>
 	  </div>
 	);
 };
