@@ -3,11 +3,10 @@ import React, { useState, useCallback } from 'react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import './style.css';
-import 'ag-grid-enterprise';
 
 import DatePicker from './DatePicker.js';
 
-const App = () => {
+const Grid = () => {
   const [rowData, setRowData] = useState(null);
   const [inputRow, setInputRow] = useState({});
 
@@ -111,4 +110,4 @@ const App = () => {
   }
 };
 
-export default App;
+export default Grid;
